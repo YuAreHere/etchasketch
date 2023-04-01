@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EtchASketch</title>
+    <style>
+        :root {
+  --grid-cols: 1;
+  --grid-rows: 1;
+}
+
+#canvas {
+  display: grid;
+  grid-gap: 0em;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+  width: 100%;
+  height: 100%;
+}
+
+.grid-item {
+  padding: 1em;
+  border: 1px solid #ddd;
+  text-align: center;
+  transition: background-color 0.5s;
+}
+
+.grid-item:hover {
+    background-color: rgba(0, 132, 255, 0.817);
+  }
+
+    </style>
+</head>
+<body>
+    <div id="canvas">
+    </div>
+
+</body>
+<script>
+let canvas = document.getElementById("canvas");
+
+function makeRows(rows, cols) {
+  canvas.style.setProperty('--grid-rows', rows);
+  canvas.style.setProperty('--grid-cols', cols);
+  for (c = 0; c < (rows * cols); c++) {
+    let square = document.createElement("div");
+    square.innerText = (c + 1);
+    canvas.appendChild(square).className = "grid-item";
+
+    const gridItems = document.querySelectorAll('.grid-item');
+let isMouseDown = false;
+
+gridItems.forEach(gridItem => {
+  gridItem.addEventListener('mousedown', () => {
+    isMouseDown = true;
+  });
+
+  gridItem.addEventListener('mouseup', () => {
+    isMouseDown = false;
+  });
+
+  gridItem.addEventListener('mouseover', () => {
+    if (isMouseDown) {
+      gridItem.style.backgroundColor = 'blue';
+    }
+  });
+});
+
+    
+  };
+};
+
+makeRows(16, 16);
+
+
+</script>
+</html>
