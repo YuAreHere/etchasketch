@@ -11,13 +11,28 @@
   --grid-rows: 1;
 }
 
+body {
+  display: grid;
+  justify-items: center;
+  align-items: 0;
+  height: 100vh;
+}
+
+#popu {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+}
+
 #canvas {
   display: grid;
+  
   grid-gap: 0em;
   grid-template-rows: repeat(var(--grid-rows), 1fr);
   grid-template-columns: repeat(var(--grid-cols), 1fr);
-  width: 100%;
-  height: 100%;
+  width: 32%;
+  height: 32%;
+  
 }
 
 .grid-item {
@@ -29,16 +44,82 @@
 
 .grid-item:hover {
     background-color: rgba(0, 132, 255, 0.817);
-  }
+}
+
+button {
+  transition: transform .25s ease-out;
+  padding: 15px 25px;
+  font-size: 24px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #342b78;   
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+  margin-top: 20%;
+  margin-left: 45%;
+}
+
+button:hover {background-color: #3796d1}
+    
+button:active {
+  background-color: #000000; 
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
 
     </style>
 </head>
 <body>
+  <div id = "popu">
+
+  </div>
     <div id="canvas">
+    
     </div>
 
 </body>
 <script>
+let popu = document.getElementById("popu");
+
+// create a new button element
+let pixel = document.createElement("button");
+
+// set the text content of the button
+pixel.textContent = "Pixelate!";
+
+pixel.classList.add("pixel");
+
+// add an event listener to the button
+pixel.addEventListener("click", function() {
+  // add a class to the button to trigger the animation
+  pixel.classList.add("pressed");
+
+  // remove the class after 0.2 seconds to end the animation
+  setTimeout(function() {
+    pixel.classList.remove("pressed");
+  }, 200);
+
+  // your button click logic here
+  alert("Button clicked!");
+});
+
+popu.appendChild(pixel)
+
+let refreshBtn = document.createElement("button");
+
+refreshBtn.textContent = "Refresh!";
+
+refreshBtn.addEventListener("click", function() {
+  location.reload();
+});
+
+popu.appendChild(refreshBtn)
+
+
 let canvas = document.getElementById("canvas");
 
 function makeRows(rows, cols) {
@@ -46,7 +127,7 @@ function makeRows(rows, cols) {
   canvas.style.setProperty('--grid-cols', cols);
   for (c = 0; c < (rows * cols); c++) {
     let square = document.createElement("div");
-    square.innerText = (c + 1);
+    
     canvas.appendChild(square).className = "grid-item";
 
     const gridItems = document.querySelectorAll('.grid-item');
@@ -63,7 +144,7 @@ gridItems.forEach(gridItem => {
 
   gridItem.addEventListener('mouseover', () => {
     if (isMouseDown) {
-      gridItem.style.backgroundColor = 'blue';
+      gridItem.style.backgroundColor = 'dodgerblue';
     }
   });
 });
