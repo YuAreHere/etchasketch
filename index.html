@@ -27,11 +27,11 @@ body {
 #canvas {
   display: grid;
   
-  grid-gap: 0em;
+  grid-gap: 1px;
   grid-template-rows: repeat(var(--grid-rows), 1fr);
   grid-template-columns: repeat(var(--grid-cols), 1fr);
   width: 32%;
-  height: 32%;
+  height: 100%;
   
 }
 
@@ -85,6 +85,14 @@ button:active {
 <script>
 let popu = document.getElementById("popu");
 
+/** let rowsInput = document.createElement("input");
+rowsInput.type = "number";
+rowsInput.placeholder = "Rows";
+
+let colsInput = document.createElement("input");
+colsInput.type = "number";
+colsInput.placeholder = "Cols"; **/
+
 // create a new button element
 let pixel = document.createElement("button");
 
@@ -104,10 +112,20 @@ pixel.addEventListener("click", function() {
   }, 200);
 
   // your button click logic here
-  alert("Button clicked!");
+  
+  // prompt the user for the number of rows and columns
+  let rows = prompt("Enter the number of rows:");
+  let cols = rows;
+
+  // call makeRows with the entered values
+ 
+  
+  makeRows(rows, cols);
 });
 
-popu.appendChild(pixel)
+/** popu.appendChild(rowsInput);
+popu.appendChild(colsInput);**/
+popu.appendChild(pixel);
 
 let refreshBtn = document.createElement("button");
 
@@ -130,7 +148,14 @@ function makeRows(rows, cols) {
     
     canvas.appendChild(square).className = "grid-item";
 
-    const gridItems = document.querySelectorAll('.grid-item');
+    
+
+  };  
+};
+
+makeRows(16, 16);
+
+const gridItems = document.querySelectorAll('.grid-item');
 let isMouseDown = false;
 
 gridItems.forEach(gridItem => {
@@ -150,11 +175,5 @@ gridItems.forEach(gridItem => {
 });
 
     
-  };
-};
-
-makeRows(16, 16);
-
-
 </script>
 </html>
